@@ -1,0 +1,8 @@
+https://johnliu.net/blog/2011/5/30/infopath-2010-embed-html-for-rich-and-web-forms.html
+Follow link and add html inside textarea, add the below
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+<myhtml>
+<p xmlns="http://www.w3.org/1999/xhtml" id="UploadIframe" data-attr="5" data-attr-url="uploadpageUrl"></p>
+</myhtml>
+</html>
