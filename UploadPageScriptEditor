@@ -1,0 +1,116 @@
+<DIV class="ms-rte-embedcode ms-rte-embedwp"><style>
+
+.js-listview-qcbNewButton,.js-listview-qcbShareButton{display:none }
+.ms-backgroundImage  div#s4-ribbonrow {
+    display: none;
+}
+</style>
+<script type="text/javascript">
+(function (_window) {
+    var maxTimeForReplaceUploadProgressFunc = 10000;
+    function replaceUploadProgressFunc() {
+        if (typeof _window.UploadProgressFunc != 'undefined') {
+            _window.Base_UploadProgressFunc = _window.UploadProgressFunc;
+            _window.UploadProgressFunc = Custom_UploadProgressFunc;
+            console.log('replaced dialog');
+$(".ms-dlgOverlay").hide();
+        } else if (maxTimeForReplaceUploadProgressFunc > 0) {
+            maxTimeForReplaceUploadProgressFunc -= 100;
+            setTimeout(replaceUploadProgressFunc, 100);
+        }
+    }
+    setTimeout(replaceUploadProgressFunc, 100);
+
+
+    function Custom_UploadProgressFunc(percentDone, timeElapsed, state) {
+        _window.Base_UploadProgressFunc(percentDone, timeElapsed, state);
+        var messageType = ProgressMessage.EMPTY;
+        switch (state.status) {
+            case 1:
+                messageType = ProgressMessage.VALIDATION;
+                break;
+            case 3:
+                messageType = ProgressMessage.UPLOADING;
+                break;
+            case 4:
+                messageType = ProgressMessage.UPLOADED;
+                OpenEditFormForLastItem(state);
+                break;
+            case 5:
+                messageType = ProgressMessage.CANCELLED;
+                break;
+        }
+
+        function OpenEditFormForLastItem(state) {
+            var caml = '';
+            caml += "<View>";
+            caml += "<Query>";
+            caml += "<Where>";
+
+            if (state.files.length > 1) {
+                caml += "<In>";
+                caml += "<FieldRef Name='FileLeafRef'/>";
+                caml += "<Values>";
+            } else {
+                caml += "<Eq>";
+                caml += "<FieldRef Name='FileLeafRef'/>";
+            }
+
+            state.files.forEach(function (file) {
+                //only succesfull uploaded files that arent overwrites
+                console.log(file);
+                if (file.status === 5 /*&& !file.overwrite*/) {
+                    caml += "<Value Type='File'>" + file.fileName + "</Value>";
+                }
+            }, this);
+
+            if (state.files.length > 1) {
+                caml += "</Values>";
+                caml += "</In>";
+            } else {
+                caml += "</Eq>";
+            }
+
+            caml += "</Where>";
+            caml += "<OrderBy><FieldRef Name='ID' Ascending='True' /></OrderBy>";
+            caml += "</Query>";
+            caml += "<ViewFields><FieldRef Name='ID' /></ViewFields>";
+            caml += "<RowLimit>500</RowLimit>";
+            caml += "</View>";
+            console.log(caml);
+
+            var cntxt = SP.ClientContext.get_current();
+            var web = cntxt.get_web();
+            var list = web.get_lists().getByTitle(window.ctx.ListTitle);
+            var query = new SP.CamlQuery();
+            query.set_viewXml(caml);
+            var items = list.getItems(query);
+            cntxt.load(list, 'DefaultEditFormUrl');
+            cntxt.load(items);
+            cntxt.executeQueryAsync(function () {
+                var listEnumerator = items.getEnumerator();
+                function openEditForItem() {
+                    if (listEnumerator.moveNext()) {
+                        var item = listEnumerator.get_current();
+                        var id = item.get_id();
+
+                        var options = SP.UI.$create_DialogOptions();
+                        options.title = "Add File Metadata";
+                        options.url = list.get_defaultEditFormUrl() + '?ID=' + id;
+                        options.autoSize = true;
+                        options.dialogReturnValueCallback = openEditForItem;
+                        SP.UI.ModalDialog.showModalDialog(options);
+                    } else {
+                        location.reload();
+                    }
+                }
+                openEditForItem();
+            }, function (error, args) {
+                    console.log("failed to get new uploaded items");
+                    console.log(error);
+                    console.log(args);
+                });
+        }
+    }
+})(window);
+</script></DIV>
