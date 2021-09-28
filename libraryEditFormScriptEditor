@@ -1,0 +1,27 @@
+<DIV class="ms-rte-embedcode ms-rte-embedwp"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" id="onetidPageTitleAreaFrameScript">
+	 
+	function getQueryString() {
+                var queryStringKeyValue = window.parent.location.search.replace('?', '').split('&');
+                var qsJsonObject = {};
+                if (queryStringKeyValue != '') {
+                    for (i = 0; i < queryStringKeyValue.length; i++) {
+                        qsJsonObject[queryStringKeyValue[i].split('=')[0]] = queryStringKeyValue[i].split('=')[1];
+                    }
+                }
+                return qsJsonObject;
+            }
+			$(document).ready(function(){
+			var input = document.getElementById("uniqueBtnID_87c1fec8-f23c-4e6b-9f12-6d46d90346dc_$TextField");
+			
+			
+			var val=$('[buttonid="uniqueBtnID"]', window.parent.document)[0].value
+			
+            console.log("hu");
+			console.log(val);
+			input.value=val;
+			$("input[id$='diidIOSaveItem']")[0].click();
+$(".ms-dlgOverlay").hide();
+			})
+			
+</script></DIV>
