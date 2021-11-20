@@ -246,7 +246,7 @@ $(".ms-dlgOverlay").hide();
 Finally we will get InfoPath web page with section that allow to upload files with drag and drop or upload selector to SharePoint Document library, and after upload will 
 update the properties to map documents to submitted form
 
-![Image](https://github.com/mohamadhijazi/InfoPath/blob/main/infopathupload.png)
+![Image](https://raw.githubusercontent.com/mohamadhijazi/InfoPath/main/infopathupload.png)
 
 ```markdown
 Good luck
