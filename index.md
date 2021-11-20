@@ -241,24 +241,13 @@ $(".ms-dlgOverlay").hide();
 			
 </script></DIV>
 ```
-### Step5
+### Result
 
-Create new empty page and add the InfoPath webpart, and add script editor paste the below js code makesure you have JQ reference
+Finally we will get InfoPath web page with section that allow to upload files with drag and drop or upload selector to SharePoint Document library, and after upload will 
+update the properties to map documents to submitted form
+
+![Image](https://github.com/mohamadhijazi/InfoPath/blob/main/infopathupload.png)
 
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+Good luck
 ```
