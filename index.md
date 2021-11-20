@@ -1,10 +1,21 @@
-## Welcome to GitHub Pages
+## How to add multiple upload iframe inside Infopath
+You can find script [here](https://github.com/mohamadhijazi/InfoPath/)
+### Step1
 
-You can use the [editor on GitHub](https://github.com/mohamadhijazi/InfoPath/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Follow link and add html inside textarea, add the below
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+```markdown
+https://johnliu.net/blog/2011/5/30/infopath-2010-embed-html-for-rich-and-web-forms.html
 
-### Markdown
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+<myhtml>
+<p xmlns="http://www.w3.org/1999/xhtml" id="UploadIframe" data-attr="5" data-attr-url="uploadpageUrl"></p>
+</myhtml>
+</html>
+```
+
+### Step2
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
@@ -25,13 +36,3 @@ Syntax highlighted code block
 
 [Link](url) and ![Image](src)
 ```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mohamadhijazi/InfoPath/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
